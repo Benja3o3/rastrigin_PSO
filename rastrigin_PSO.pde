@@ -79,7 +79,7 @@ class Particle{
   
   // ------------------------------ despliega partícula
   void display(){
-    fill(0,0,255);
+    fill(255,0,0);
     ellipse (x,y,d,d);
     // dibuja vector
   }
@@ -94,7 +94,7 @@ float rastrigin(float x,float y){
 
 // dibuja punto azul en la mejor posición y despliega números
 void despliegaBest(){
-  fill(0,255,0);
+  fill(255,255,255);
   ellipse(gbestx,gbesty,d,d);
   PFont f = createFont("Arial",16,true);
   fill(0,0,0);
@@ -108,14 +108,13 @@ void setup(){
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //size(1440,720); //setea width y height
   //surf = loadImage("marscyl2.jpg");
-  
   size(1000,1000); //setea width y height (de acuerdo al tamaño de la imagen)
   surf = createImage(1000, 1000, RGB);
   surf.loadPixels();
   for (int i = 0; i < 1000; i++) {
     for (int j = 0; j < 1000; j++){
-      float val = rastrigin(i/100-3,j/100-3)/150;
-      surf.pixels[i*1000+j] = color(255, 255, 255);
+      float val = rastrigin((i-300)/100.0,(j-300)/100.0);
+      surf.pixels[i*1000+j] = color(0,val*3,255-(val*3));
     } 
   }
   surf.updatePixels();
@@ -129,7 +128,7 @@ void setup(){
 
 void draw(){
   // background(255,255,255);
-  image(surf, 0, 0);
+  image(surf,0,0);
   //despliega mapa, posiciones  y otros
   dibujarPlano();
   for(int i = 0;i<puntos;i++){
