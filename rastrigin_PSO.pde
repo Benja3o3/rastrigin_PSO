@@ -13,6 +13,7 @@ float w = 500; // inercia: baja (~50): explotación, alta (~5000): exploración 
 float C1 = 30, C2 =  10; // learning factors (C1: own, C2: social) (ok)
 int evals = 0, evals_to_best = 0; //número de evaluaciones, sólo para despliegue
 float maxv = 3; // max velocidad (modulo)
+String linea = "gens,fitprom,fitbest\n";
 
 class Particle{
   float x, y, fit; // current position(x-vector)  and fitness (x-fitness)
@@ -140,6 +141,10 @@ void draw(){
     fl[i].Eval();
   }
   despliegaBest();
+  //Extrae datos
+  float fitprom = fitPromedio();
+  linea += str(evals)+","+str(fitprom)+","+str(gbest)+"\n";
+  saveStrings("pso.txt", new String[] {linea});
 }
 
 void dibujarPlano(){
@@ -151,4 +156,12 @@ void dibujarPlano(){
     line(i*100,297,i*100,303);
     line(297,i*100,303,i*100);
   }
+}
+
+float fitPromedio(){
+  float promedio = 0-0;
+  for (Particle i : fl){
+    promedio += i.fit;
+  }
+  return promedio/puntos;
 }
